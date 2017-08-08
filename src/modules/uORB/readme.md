@@ -1,7 +1,6 @@
 
-#1 简介
-
-##1.1 PX4/Pixhawk的软件体系结构
+# 1 简介
+## 1.1 PX4/Pixhawk的软件体系结构
 PX4/Pixhawk的软件体系结构主要被分为四个层次，这可以让我们更好的理解PX4/Pixhawk的软件架构和运作：
 
 * 应用程序的API：这个接口提供给应用程序开发人员，此API旨在尽可能的精简、扁平及隐藏其复杂性。
@@ -19,9 +18,9 @@ PX4/Pixhawk的软件体系结构主要被分为四个层次，这可以让我们
 
 * 应用层中操作基础飞行的应用之间都是隔离的，这样提供了一种安保模式，以确保基础操作独立的高级别系统状态的稳定性。而沟通它们的就是uORB。
 
-#2 uORB文件说明
+# 2 uORB文件说明
 
-##2.1 uORB文件／目录说明
+## 2.1 uORB文件／目录说明
 
 文件名               | 说明
 --------------------|-----------
@@ -45,7 +44,7 @@ uORBUtils.cpp       |
 uORBUtils.hpp       |
 
 
-#3 常用函数功能解析
+# 3 常用函数功能解析
 * `int poll(struct pollfd fds[], nfds_t nfds, int timeout)`
 
  ```
@@ -244,8 +243,8 @@ uORBUtils.hpp       |
  ret = orb_priority(handle, &priority);
  ```
  
-#4 例程
-#4.1 例程前准备工作
+# 4 例程
+# 4.1 例程前准备工作
 * archives已编译完成（注：**现已改为cmake编译系统，不再需要编译archives**）
 * 添加一个新的模块
   * 在Firmware/sr/modules中添加一个新的文件夹，命名为px4\_simple\_app
@@ -285,7 +284,7 @@ int px4_simple_app_main(int argc, char *argv[])
    * nsh > px4\_simple\_app
    
 **接下来的代码修改均基于此应用**
-##4.2 订阅主题
+## 4.2 订阅主题
 **sensor\_combined**主题是官方提供的通用接口标准主题
 
 ```
@@ -365,7 +364,7 @@ int px4_simple_app_main(int argc, char *argv[])
     nsh > sh /etc/init.d/rc.sensors
     nsh > px4_simple_app &
 ```
-##4.3 订阅和发布主题
+## 4.3 订阅和发布主题
 **sensor_combined**主题是官方提供的通用接口标准主题。  
 **vehicle_attitude**主题是官方提供的通用接口标准主题。
 
@@ -457,7 +456,7 @@ int px4_simple_app_main(int argc, char *argv[])
 }
 ```
 
-##4.4 创建自己的主题
+## 4.4 创建自己的主题
 官方提供的通用接口标准主题都放在了topics文件下了。如果需要定义我们自己的主题，比如我们新添加了超声波传感器，为了将超声波传感器的数据发布出去给其它需要的应用订阅，那么就需要创建我们的主题。
 
 * 主题头文件（mytopic.h）
@@ -540,7 +539,7 @@ void check_topc()
     }
 }
 ```
-#5 参考资料
+# 5 参考资料
 [PX4开发指南](http://dev.px4.io)    
 [第一个机载应用程序教程](http://www.pixhawk.com/start?id=zh/dev/px4_simple_app)  
 [Pixhawk飞控系统之uORB深入解析](http://blog.arm.so/armteg/pixhawk/183-0503.html)  
