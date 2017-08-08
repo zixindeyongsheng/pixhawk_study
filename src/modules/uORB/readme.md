@@ -1,4 +1,6 @@
+
 #1 简介
+
 ##1.1 PX4/Pixhawk的软件体系结构
 PX4/Pixhawk的软件体系结构主要被分为四个层次，这可以让我们更好的理解PX4/Pixhawk的软件架构和运作：
 
@@ -6,18 +8,19 @@ PX4/Pixhawk的软件体系结构主要被分为四个层次，这可以让我们
 * 应用程序框架: 这是为操作基础飞行控制的默认程序集（节点）。
 * 库: 这一层包含了所有的系统库和基本交通控制的函数。
 * 操作系统: 最后一层提供硬件驱动程序，网络，UAVCAN和故障安全系统。
-![alt text](/Users/simonluo/Downloads/20150714165857871.png)
+![alt text](https://github.com/BUPT-Simon/pixhawk_study/blob/master/src/modules/uORB/20150714165857871.png)
   
 * uORB(Micro Object Request Broker,微对象请求代理器)是PX4/Pixhawk系统中非常重要且关键的一个模块，它肩负了整个系统的数据传输任务，所有的传感器数据、GPS、PPM信号等都要从芯片获取后通过uORB进行传输到各个模块进行计算处理。实际上uORB是一套跨「进程」 的IPC通讯模块。在Pixhawk中， 所有的功能被独立以进程模块为单位进行实现并工作。而进程间的数据交互就由为重要，必须要能够符合实时、有序的特点。 
 
 * Pixhawk使用的是NuttX实时ARM系统，uORB实际上是多个进程打开同一个设备文件，进程间通过此文件节点进行数据交互和共享。进程通过命名的「总线」交换的消息称之为「主题」(topic)，在Pixhawk 中，一个主题仅包含一种消息类型，通俗点就是数据类型。每个进程可以「订阅」或者「发布」主题，可以存在多个发布者，或者一个进程可以订阅多个主题，但是一条总线上始终只有一条消息。
 
 ## 1.2 PX4/Pixhawk应用程序框架
-![alt text](/Users/simonluo/Downloads/20150714165954421.png)
+![alt text](https://github.com/BUPT-Simon/pixhawk_study/blob/master/src/modules/uORB/20150714165954421.png)
 
 * 应用层中操作基础飞行的应用之间都是隔离的，这样提供了一种安保模式，以确保基础操作独立的高级别系统状态的稳定性。而沟通它们的就是uORB。
 
 #2 uORB文件说明
+
 ##2.1 uORB文件／目录说明
 
 文件名               | 说明
@@ -40,6 +43,7 @@ uORBManager.hpp     | uORB功能函数实现头文件
 uORBTopics.h        | 系统通用接口定义的标准主题,比如电池电量转态、GPS的位置参数等
 uORBUtils.cpp       | 
 uORBUtils.hpp       |
+
 
 #3 常用函数功能解析
 * `int poll(struct pollfd fds[], nfds_t nfds, int timeout)`
@@ -367,7 +371,7 @@ int px4_simple_app_main(int argc, char *argv[])
 
 程序流程图如下：  
 
-![alt text](/Users/simonluo/Downloads/20150714170051994.png)
+![alt text](https://github.com/BUPT-Simon/pixhawk_study/blob/master/src/modules/uORB/20150714170051994.png)
 
 ```
 /**
